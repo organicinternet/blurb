@@ -6,6 +6,7 @@ require "blurb/request_collection"
 require "blurb/request_collection_with_campaign_type"
 require "blurb/suggested_keyword_requests"
 require "blurb/history_request"
+require "blurb/bid_recommendation_requests"
 
 class Blurb
   class Profile < BaseClass
@@ -133,6 +134,11 @@ class Blurb
         headers: headers_hash,
         base_url: @account.api_url
       )
+      @sp_bid_recommendations = BidRecommendationRequests.new(
+        headers: headers_hash,
+        base_url: @account.api_url,
+        campaign_type: CAMPAIGN_TYPE_CODES[:sp]
+      )
     end
 
     def campaigns(campaign_type)
@@ -160,6 +166,12 @@ class Blurb
       return @sp_reports if campaign_type == :sp
       return @sb_reports if campaign_type == :sb || campaign_type == :hsa
       return @sd_reports if campaign_type == :sd
+    end
+
+    def bid_recommendations(campaign_type)
+      return @sp_bid_recommendations if campaign_type == :sp
+      return @sb_bid_recommendations if campaign_type == :sb || campaign_type == :hsa
+      return @sd_bid_recommendations if campaign_type == :sd
     end
 
     def request(api_path: "",request_type: :get, payload: nil, url_params: nil, headers: headers_hash)
