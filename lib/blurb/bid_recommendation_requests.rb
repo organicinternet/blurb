@@ -15,5 +15,12 @@ class Blurb
         payload: payload
       )
     end
+
+    def retrieve(record_type, resource_id)
+      execute_request(
+        api_path: "/#{record_type.to_s.camelize(:lower)}/#{resource_id}/bidRecommendations",
+        request_type: :get
+      )
+    end
   end
 end
