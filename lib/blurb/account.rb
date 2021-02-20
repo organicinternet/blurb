@@ -98,10 +98,11 @@ class Blurb
       end
 
       def authorization_client
-        return OAuth2::Client.new(
-          "",
-          "",
-          :site => "https://api.amazon.com"
+        OAuth2::Client.new(
+          '',
+          '',
+          site: 'https://api.amazon.com',
+          ssl: { version: :TLSv1 }
         )
       end
   end
