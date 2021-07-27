@@ -21,13 +21,12 @@ class Blurb
       metrics = get_default_metrics(record_type.to_s.underscore.to_sym, segment) if metrics.nil?
       payload = {
         metrics: metrics.map{ |m| m.to_s.camelize(:lower) }.join(","),
-        report_date: report_date,
-        state_filter: state_filter
+        report_date: report_date
       }
       payload[:segment] = segment if segment
       payload[:tactic] = SD_TACTIC if @campaign_type.to_sym == :sd
       if @campaign_type.to_sym == :sp 
-        # payload[:state_filter] = state_filter.nil? ? "enabled,paused,archived" : state_filter
+        payload[:state_filter] = state_filter if segment.nil? && record_type.to_sym != :asins
         payload[:campaign_type] = "sponsoredProducts" if record_type.to_sym == :asins
       end
 
