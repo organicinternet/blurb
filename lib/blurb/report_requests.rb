@@ -26,8 +26,11 @@ class Blurb
       payload[:segment] = segment if segment
       payload[:tactic] = SD_TACTIC if @campaign_type.to_sym == :sd
       if @campaign_type.to_sym == :sp 
-        payload[:state_filter] = state_filter if segment.nil? && record_type.to_sym != :asins
-        payload[:campaign_type] = "sponsoredProducts" if record_type.to_sym == :asins
+        payload[:state_filter] = state_filter if segment.nil? && !record_type.match?(/asins\Z/i)
+        if record_type.match?(/asins\Z/i)
+          record_type = record_type.match(/asins\Z/i).to_s
+          payload[:campaign_type] = "sponsoredProducts" 
+        end
       end
 
       execute_request(
@@ -278,12 +281,12 @@ class Blurb
           "attributedUnitsOrdered30dSameSKU"
         ] if record_type == :targets
         return [
+          "keywordId",
+          "keywordText",
           "campaignName",
           "campaignId",
           "adGroupName",
           "adGroupId",
-          "keywordId",
-          "keywordText",
           "asin",
           "otherAsin",
           "sku",
@@ -301,7 +304,33 @@ class Blurb
           "attributedSales7dOtherSKU",
           "attributedSales14dOtherSKU",
           "attributedSales30dOtherSKU"
-        ] if record_type == :asins
+        ] if record_type == :keyword_asins
+        return [
+          "targetId",
+          "targetingText",
+          "targetingType",
+          "campaignName",
+          "campaignId",
+          "adGroupName",
+          "adGroupId",
+          "asin",
+          "otherAsin",
+          "sku",
+          "currency",
+          "matchType",
+          "attributedUnitsOrdered1d",
+          "attributedUnitsOrdered7d",
+          "attributedUnitsOrdered14d",
+          "attributedUnitsOrdered30d",
+          "attributedUnitsOrdered1dOtherSKU",
+          "attributedUnitsOrdered7dOtherSKU",
+          "attributedUnitsOrdered14dOtherSKU",
+          "attributedUnitsOrdered30dOtherSKU",
+          "attributedSales1dOtherSKU",
+          "attributedSales7dOtherSKU",
+          "attributedSales14dOtherSKU",
+          "attributedSales30dOtherSKU"
+        ] if record_type == :target_asins
       elsif @campaign_type == CAMPAIGN_TYPE_CODES[:sd]
         return [
           "campaignId",
