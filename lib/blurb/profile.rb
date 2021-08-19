@@ -28,71 +28,74 @@ class Blurb
     def initialize(profile_id:, account:)
       @profile_id = profile_id
       @account = account
+      initialize_requests
+    end
 
+    def initialize_requests
       @sp_campaigns = CampaignRequests.new(
         headers: headers_hash,
-        base_url: @account.api_url,
+        base_url: account.api_url,
         resource: "campaigns",
         campaign_type: CAMPAIGN_TYPE_CODES[:sp]
       )
       @sb_campaigns = CampaignRequests.new(
         headers: headers_hash,
-        base_url: @account.api_url,
+        base_url: account.api_url,
         resource: "campaigns",
         campaign_type: CAMPAIGN_TYPE_CODES[:sb],
         bulk_api_limit: 10
       )
       @sd_campaigns = CampaignRequests.new(
         headers: headers_hash,
-        base_url: @account.api_url,
+        base_url: account.api_url,
         resource: "campaigns",
         campaign_type: CAMPAIGN_TYPE_CODES[:sd],
         bulk_api_limit: 10
       )
       @sp_keywords = RequestCollectionWithCampaignType.new(
         headers: headers_hash,
-        base_url: @account.api_url,
+        base_url: account.api_url,
         resource: "keywords",
         campaign_type: CAMPAIGN_TYPE_CODES[:sp]
       )
       @sb_keywords = RequestCollectionWithCampaignType.new(
         headers: headers_hash,
-        base_url: @account.api_url,
+        base_url: account.api_url,
         resource: "keywords",
         campaign_type: CAMPAIGN_TYPE_CODES[:sb]
       )
       @sp_snapshots = SnapshotRequests.new(
         headers: headers_hash,
-        base_url: @account.api_url,
+        base_url: account.api_url,
         campaign_type: CAMPAIGN_TYPE_CODES[:sp]
       )
       @sb_snapshots = SnapshotRequests.new(
         headers: headers_hash,
-        base_url: @account.api_url,
+        base_url: account.api_url,
         campaign_type: CAMPAIGN_TYPE_CODES[:sb]
       )
       @sp_reports = ReportRequests.new(
         headers: headers_hash,
-        base_url: @account.api_url,
+        base_url: account.api_url,
         campaign_type: CAMPAIGN_TYPE_CODES[:sp]
       )
       @sd_reports = ReportRequests.new(
         headers: headers_hash,
-        base_url: @account.api_url,
+        base_url: account.api_url,
         campaign_type: CAMPAIGN_TYPE_CODES[:sd]
       )
       @sb_reports = ReportRequests.new(
         headers: headers_hash,
-        base_url: @account.api_url,
+        base_url: account.api_url,
         campaign_type: CAMPAIGN_TYPE_CODES[:sb]
       )
       @ad_groups = RequestCollection.new(
         headers: headers_hash,
-        base_url: "#{@account.api_url}/v2/sp/adGroups"
+        base_url: "#{account.api_url}/v2/sp/adGroups"
       )
       @sd_ad_groups = RequestCollection.new(
         headers: headers_hash,
-        base_url: "#{@account.api_url}/sd/adGroups"
+        base_url: "#{account.api_url}/sd/adGroups"
       )
       @product_ads = RequestCollection.new(
         headers: headers_hash,
@@ -104,39 +107,39 @@ class Blurb
       )
       @sp_negative_keywords = RequestCollectionWithCampaignType.new(
         headers: headers_hash,
-        base_url: @account.api_url,
+        base_url: account.api_url,
         resource: 'negativeKeywords',
         campaign_type: CAMPAIGN_TYPE_CODES[:sp]
       )
       @sb_negative_keywords = RequestCollectionWithCampaignType.new(
         headers: headers_hash,
-        base_url: @account.api_url,
+        base_url: account.api_url,
         resource: 'negativeKeywords',
         campaign_type: CAMPAIGN_TYPE_CODES[:sb]
       )
       @campaign_negative_keywords = RequestCollection.new(
         headers: headers_hash,
-        base_url: "#{@account.api_url}/v2/sp/campaignNegativeKeywords"
+        base_url: "#{account.api_url}/v2/sp/campaignNegativeKeywords"
       )
       @targets = RequestCollection.new(
         headers: headers_hash,
-        base_url: "#{@account.api_url}/v2/sp/targets"
+        base_url: "#{account.api_url}/v2/sp/targets"
       )
       @portfolios = RequestCollection.new(
         headers: headers_hash,
-        base_url: "#{@account.api_url}/v2/portfolios"
+        base_url: "#{account.api_url}/v2/portfolios"
       )
       @suggested_keywords = SuggestedKeywordRequests.new(
         headers: headers_hash,
-        base_url: "#{@account.api_url}/v2/sp"
+        base_url: "#{account.api_url}/v2/sp"
       )
       @history = HistoryRequest.new(
         headers: headers_hash,
-        base_url: @account.api_url
+        base_url: account.api_url
       )
       @sp_bid_recommendations = BidRecommendationRequests.new(
         headers: headers_hash,
-        base_url: @account.api_url,
+        base_url: account.api_url,
         campaign_type: CAMPAIGN_TYPE_CODES[:sp]
       )
     end
