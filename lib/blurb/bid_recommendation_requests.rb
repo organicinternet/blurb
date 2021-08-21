@@ -1,7 +1,7 @@
-require 'blurb/request_collection_with_campaign_type'
+require 'blurb/request_collection'
 
 class Blurb
-  class BidRecommendationRequests < RequestCollectionWithCampaignType
+  class BidRecommendationRequests < RequestCollection
     def initialize(campaign_type:, base_url:, headers:)
       @campaign_type = campaign_type
       @base_url = "#{base_url}/v2/#{@campaign_type}"
