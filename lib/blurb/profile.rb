@@ -111,10 +111,22 @@ class Blurb
         resource: 'negativeKeywords',
         campaign_type: CAMPAIGN_TYPE_CODES[:sp]
       )
+      @sp_negative_targets = RequestCollectionWithCampaignType.new(
+        headers: headers_hash,
+        base_url: account.api_url,
+        resource: 'negativeTargets',
+        campaign_type: CAMPAIGN_TYPE_CODES[:sp]
+      )
       @sb_negative_keywords = RequestCollectionWithCampaignType.new(
         headers: headers_hash,
         base_url: account.api_url,
         resource: 'negativeKeywords',
+        campaign_type: CAMPAIGN_TYPE_CODES[:sb]
+      )
+      @sb_negative_targets = RequestCollectionWithCampaignType.new(
+        headers: headers_hash,
+        base_url: account.api_url,
+        resource: 'negativeTargets',
         campaign_type: CAMPAIGN_TYPE_CODES[:sb]
       )
       @campaign_negative_keywords = RequestCollection.new(
@@ -158,6 +170,11 @@ class Blurb
     def negative_keywords(campaign_type)
       return @sp_negative_keywords if campaign_type == :sp
       return @sb_negative_keywords if campaign_type == :sb || campaign_type == :hsa
+    end
+
+    def negative_targets(campaign_type)
+      return @sp_negative_targets if campaign_type == :sp
+      return @sb_negative_targets if campaign_type == :sb || campaign_type == :hsa
     end
 
     def snapshots(campaign_type)
