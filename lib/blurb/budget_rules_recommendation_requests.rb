@@ -10,7 +10,7 @@ class Blurb
 
     def retrieve(payload)
       execute_request(
-        api_path: "/campaigns/budgetRules/becommendations",
+        api_path: "/campaigns/budgetRules/recommendations",
         request_type: :post,
         payload: payload
       )
