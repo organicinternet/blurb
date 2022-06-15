@@ -81,7 +81,32 @@ class Blurb
       return @authorization_token
     end
 
+    def create_test_account(country_code: "US")
+      account_request(country_code)
+    end
+
+    def get_test_accounts(request_id)
+      profile_request("/testAccounts?requestId=#{request_id}")
+    end
+
     private
+      def account_request(country_code)
+        request = Request.new(
+          url: "#{API_URLS["NA"]}/testAccounts",
+          payload: {
+            "countryCode": country_code,
+            "accountType": "AUTHOR",
+          },
+          request_type: :post,
+          headers: {
+            "Authorization" => "Bearer #{retrieve_token()}",
+            "Content-Type" => "application/json",
+            "Amazon-Advertising-API-ClientId" => @client.client_id
+          }
+        )
+
+        request.make_request
+      end
 
       def profile_request(api_path)
         request = Request.new(
