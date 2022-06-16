@@ -68,6 +68,14 @@ class Blurb
       )
     end
 
+    def metadata(payload)
+      execute_request(
+        api_path: "/metadata",
+        request_type: :post,
+        payload: payload
+      )
+    end
+
     private
 
       def execute_request(api_path: "", request_type:, payload: nil, url_params: nil)

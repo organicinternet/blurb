@@ -24,7 +24,8 @@ class Blurb
       :profile_id,
       :suggested_keywords,
       :targets,
-      :history
+      :history,
+      :products
     )
 
     def initialize(profile_id:, account:)
@@ -165,6 +166,10 @@ class Blurb
         headers: headers_hash,
         base_url: account.api_url,
         campaign_type: CAMPAIGN_TYPE_CODES[:sp]
+      )
+      @products = RequestCollection.new(
+        headers: headers_hash,
+        base_url: "#{account.api_url}/product"
       )
     end
 
