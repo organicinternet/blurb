@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'blurb/request_collection'
 
 class Blurb
@@ -10,9 +12,9 @@ class Blurb
 
     def retrieve(payload)
       execute_request(
-        api_path: "/campaigns/budgetRules/recommendations",
+        api_path: '/campaigns/budgetRules/recommendations',
         request_type: :post,
-        payload: payload
+        payload:
       )
     end
   end

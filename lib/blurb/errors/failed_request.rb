@@ -1,4 +1,10 @@
+# frozen_string_literal: true
+
 require "blurb/errors/base_exception"
 class Blurb
-  class FailedRequest < StandardError; end
+  class FailedRequest < BaseException
+    def initialize(response)
+      super("Error in response", response)
+    end
+  end
 end

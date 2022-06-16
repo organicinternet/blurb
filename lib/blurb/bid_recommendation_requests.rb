@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'blurb/request_collection'
 
 class Blurb
@@ -12,7 +14,7 @@ class Blurb
       execute_request(
         api_path: "/#{record_type.to_s.camelize(:lower)}/bidRecommendations",
         request_type: :post,
-        payload: payload
+        payload:
       )
     end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "blurb/base_class"
 
 class Blurb

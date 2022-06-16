@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 require 'blurb/request_collection'
 
 class Blurb
   class HistoryRequest < RequestCollection
     FROM_DATE = (DateTime.now - 30).strftime('%Q')
     TO_DATE = DateTime.now.strftime('%Q')
-    MAX_COUNT = 200.freeze
-    MIN_COUNT = 50.freeze
-    FILTERS = []
+    MAX_COUNT = 200
+    MIN_COUNT = 50
+    FILTERS = [].freeze
     PARENT_CAMPAIGN_ID = nil
 
     def initialize(base_url:, headers:)
@@ -15,9 +17,8 @@ class Blurb
     end
 
     def retrieve(
-      from_date: FROM_DATE,
+      campaign_ids:, from_date: FROM_DATE,
       to_date: TO_DATE,
-      campaign_ids:,
       filters: FILTERS,
       parent_campaign_id: PARENT_CAMPAIGN_ID,
       count: MAX_COUNT
@@ -38,16 +39,18 @@ class Blurb
             eventTypeIds: campaign_ids
           }
         },
-        count: count
+        count:
       }
 
-      payload[:eventTypes][:CAMPAIGN].merge!({ filters: filters }) if filters.present?
-      payload[:eventTypes][:CAMPAIGN].merge!({ parents: [{ campaignId: parent_campaign_id }] }) if parent_campaign_id.present?
+      payload[:eventTypes][:CAMPAIGN].merge!({ filters: }) if filters.present?
+      if parent_campaign_id.present?
+        payload[:eventTypes][:CAMPAIGN].merge!({ parents: [{ campaignId: parent_campaign_id }] })
+      end
 
       execute_request(
-        api_path: "/history",
+        api_path: '/history',
         request_type: :post,
-        payload: payload
+        payload:
       )
     end
   end

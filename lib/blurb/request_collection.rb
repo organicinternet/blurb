@@ -1,27 +1,26 @@
 require 'blurb/request'
-require "blurb/base_class"
+require 'blurb/base_class'
 
 class Blurb
   class RequestCollection < BaseClass
-
     def initialize(headers:, base_url:, bulk_api_limit: 100)
       @base_url = base_url
       @headers = headers
       @api_limit = bulk_api_limit
     end
 
-    def list(url_params=nil)
+    def list(url_params = nil)
       execute_request(
         request_type: :get,
-        url_params: url_params
+        url_params:
       )
     end
 
-    def list_extended(url_params=nil)
+    def list_extended(url_params = nil)
       execute_request(
-        api_path: "/extended",
+        api_path: '/extended',
         request_type: :get,
-        url_params: url_params
+        url_params:
       )
     end
 
@@ -46,7 +45,7 @@ class Blurb
     def create_bulk(create_array)
       execute_bulk_request(
         request_type: :post,
-        payload: create_array,
+        payload: create_array
       )
     end
 
@@ -57,7 +56,7 @@ class Blurb
     def update_bulk(update_array)
       execute_bulk_request(
         request_type: :put,
-        payload: update_array,
+        payload: update_array
       )
     end
 
@@ -70,38 +69,38 @@ class Blurb
 
     def metadata(payload)
       execute_request(
-        api_path: "/metadata",
+        api_path: '/metadata',
         request_type: :post,
-        payload: payload
+        payload:
       )
     end
 
     private
 
-      def execute_request(api_path: "", request_type:, payload: nil, url_params: nil)
-        url = "#{@base_url}#{api_path}"
-        url.sub!('/sd/', '/') if request_type == :get && url.include?('sd/reports') && url_params.nil?
+    def execute_request(request_type:, api_path: '', payload: nil, url_params: nil)
+      url = "#{@base_url}#{api_path}"
+      url.sub!('/sd/', '/') if request_type == :get && url.include?('sd/reports') && url_params.nil?
 
-        request = Request.new(
-          url: url,
-          url_params: url_params,
-          request_type: request_type,
-          payload: payload,
-          headers: @headers
-        )
+      request = Request.new(
+        url:,
+        url_params:,
+        request_type:,
+        payload:,
+        headers: @headers
+      )
 
-        request.make_request
+      request.make_request
+    end
+
+    # Split up bulk requests to match the api limit
+    def execute_bulk_request(**execute_request_params)
+      results = []
+      payloads = execute_request_params[:payload].each_slice(@api_limit).to_a
+      payloads.each do |p|
+        execute_request_params[:payload] = p
+        results << execute_request(**execute_request_params)
       end
-
-      # Split up bulk requests to match the api limit
-      def execute_bulk_request(**execute_request_params)
-        results = []
-        payloads = execute_request_params[:payload].each_slice(@api_limit).to_a
-        payloads.each do |p|
-          execute_request_params[:payload] = p
-          results << execute_request(**execute_request_params)
-        end
-        results.flatten
-      end
+      results.flatten
+    end
   end
 end

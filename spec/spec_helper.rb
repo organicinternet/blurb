@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require "bundler/setup"
 require "blurb"
-require 'dotenv/load'
-require 'byebug'
-require 'faker'
+require "dotenv/load"
+require "byebug"
+require "faker"
 
 Dir.glob("#{File.dirname __FILE__}/support/*.rb").each { |f| require f }
 
