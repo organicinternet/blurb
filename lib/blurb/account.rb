@@ -81,8 +81,8 @@ class Blurb
       return @authorization_token
     end
 
-    def create_test_account(country_code: "US")
-      account_request(country_code)
+    def create_test_account(country_code: "US", account_type: "VENDOR")
+      account_request(country_code, account_type)
     end
 
     def get_test_accounts(request_id)
@@ -90,12 +90,12 @@ class Blurb
     end
 
     private
-      def account_request(country_code)
+      def account_request(country_code, account_type)
         request = Request.new(
           url: "#{API_URLS["NA"]}/testAccounts",
           payload: {
             "countryCode": country_code,
-            "accountType": "AUTHOR",
+            "accountType": account_type,
           },
           request_type: :post,
           headers: {
