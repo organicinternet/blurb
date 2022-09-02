@@ -8,6 +8,7 @@ require 'blurb/request_collection'
 require 'blurb/request_collection_with_campaign_type'
 require 'blurb/suggested_keyword_requests'
 require 'blurb/history_request'
+require 'blurb/product_request'
 require 'blurb/bid_recommendation_requests'
 require 'blurb/budget_recommendation_requests'
 require 'blurb/budget_rules_recommendation_requests'
@@ -173,9 +174,9 @@ class Blurb
         base_url: account.api_url,
         campaign_type: CAMPAIGN_TYPE_CODES[:sp]
       )
-      @products = RequestCollection.new(
+      @products = ProductRequest.new(
         headers: headers_hash,
-        base_url: "#{account.api_url}/product"
+        base_url: account.api_url
       )
     end
 
