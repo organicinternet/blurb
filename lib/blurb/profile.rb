@@ -4,6 +4,7 @@ require 'blurb/account'
 require 'blurb/campaign_requests'
 require 'blurb/snapshot_requests'
 require 'blurb/report_requests'
+require 'blurb/report_v3_requests'
 require 'blurb/request_collection'
 require 'blurb/request_collection_with_campaign_type'
 require 'blurb/suggested_keyword_requests'
@@ -27,7 +28,8 @@ class Blurb
       :suggested_keywords,
       :targets,
       :history,
-      :products
+      :products,
+      :sp_reports_3v
     )
 
     def initialize(profile_id:, account:)
@@ -177,6 +179,11 @@ class Blurb
       @products = ProductRequest.new(
         headers: headers_hash,
         base_url: account.api_url
+      )
+      @sp_reports_3v = ReportV3Requests.new(
+        headers: headers_hash,
+        base_url: account.api_url,
+        campaign_type: CAMPAIGN_TYPE_CODES[:sp]
       )
     end
 
