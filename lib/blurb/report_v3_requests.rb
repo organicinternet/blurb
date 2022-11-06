@@ -292,6 +292,7 @@ class Blurb
               advertisedSku
               campaignBudgetCurrencyCode
               matchType
+              targeting
               unitsSoldClicks1d
               unitsSoldClicks7d
               unitsSoldClicks14d
