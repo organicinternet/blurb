@@ -287,6 +287,8 @@ class Blurb
               keywordId
               keyword
               keywordType
+              targetId
+              targetingExpression
               advertisedAsin
               purchasedAsin
               advertisedSku
