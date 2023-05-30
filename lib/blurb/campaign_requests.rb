@@ -1,4 +1,6 @@
-require 'blurb/request_collection_with_campaign_type'
+# frozen_string_literal: true
+
+require "blurb/request_collection_with_campaign_type"
 
 class Blurb
   class CampaignRequests < RequestCollectionWithCampaignType
@@ -13,12 +15,11 @@ class Blurb
     end
 
     private
-
       def map_campaign_payload(payload)
         campaign_type_string = "sponsoredProducts" if @campaign_type == CAMPAIGN_TYPE_CODES[:sp]
         campaign_type_string = "sponsoredBrands" if @campaign_type == CAMPAIGN_TYPE_CODES[:sb]
         campaign_type_string = "sponsoredDisplays" if @campaign_type == CAMPAIGN_TYPE_CODES[:sd]
-        payload.each{ |p| p[:campaign_type] = campaign_type_string }
+        payload.each { |p| p[:campaign_type] = campaign_type_string }
       end
   end
 end

@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 RSpec.describe Blurb::ReportRequests do
   before(:all) do
-    @blurb = Blurb.new()
+    @blurb = Blurb.new
     @report_type = ""
   end
 
@@ -19,22 +21,22 @@ RSpec.describe Blurb::ReportRequests do
   end
 
   context "sponsored brands" do
-    let(:resource) {@blurb.active_profile.reports(:sb)}
-    let(:report_types) {[:campaigns, :ad_groups, :keywords]}
+    let(:resource) { @blurb.active_profile.reports(:sb) }
+    let(:report_types) { %i[campaigns ad_groups keywords] }
 
     include_examples "reports"
   end
 
   context "sponsored products" do
-    let(:resource) {@blurb.active_profile.reports(:sp)}
-    let(:report_types) {[:campaigns, :ad_groups, :keywords, :product_ads, :targets]}
+    let(:resource) { @blurb.active_profile.reports(:sp) }
+    let(:report_types) { %i[campaigns ad_groups keywords product_ads targets] }
 
     include_examples "reports"
   end
 
   context "sponsored displays" do
-    let(:resource) {@blurb.active_profile.reports(:sd)}
-    let(:report_types) {[:campaigns, :ad_groups, :product_ads, :targets]}
+    let(:resource) { @blurb.active_profile.reports(:sd) }
+    let(:report_types) { %i[campaigns ad_groups product_ads targets] }
 
     include_examples "reports"
   end
@@ -48,10 +50,10 @@ RSpec.describe Blurb::ReportRequests do
   end
 
   describe "search term keyword reports" do
-    let(:resource) {@blurb.active_profile.reports(:sb)}
+    let(:resource) { @blurb.active_profile.reports(:sb) }
     it "requests and retrieves search term keyword reports" do
       @report_type = :keywords
-      @response = resource.create(record_type: @report_type, segment: 'query')
+      @response = resource.create(record_type: @report_type, segment: "query")
       expect(@response[:status]).to eq("IN_PROGRESS")
       @retrieve_response = resource.retrieve(@response[:report_id])
       expect(@retrieve_response[:report_id]).to be_truthy

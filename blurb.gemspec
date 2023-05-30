@@ -1,15 +1,16 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
+# frozen_string_literal: true
+
+lib = File.expand_path("lib", __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "blurb"
-  spec.version       = "0.5.5"
-  spec.authors       = ["dlbunker", "eamigo13", "smithworx"]
+  spec.version       = "0.5.9"
+  spec.authors       = %w[dlbunker eamigo13 smithworx]
   spec.email         = ["evan@pattern.com"]
 
-  spec.summary       = %q{Ruby gem for the Amazon Advertising API}
-  spec.description   = %q{Amazon released a new Advertising API in 2017. This gem will integrate and allow you to make API calls to Amazon.}
+  spec.summary       = "Ruby gem for the Amazon Advertising API"
+  spec.description   = "Amazon released a new Advertising API in 2017. This gem will integrate and allow you to make API calls to Amazon."
   spec.homepage      = "https://github.com/iserve-products/blurb"
   spec.license       = "MIT"
 
@@ -22,7 +23,7 @@ Gem::Specification.new do |spec|
       "public gem pushes."
   end
 
-  spec.files         = `git ls-files -z`.split("\x0").reject do |f|
+  spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
   end
   spec.bindir        = "exe"
@@ -30,15 +31,14 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 2.0"
+  spec.add_development_dependency "byebug"
+  spec.add_development_dependency "dotenv"
+  spec.add_development_dependency "faker", "~> 2.1.0"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "rspec_junit_formatter", "~> 0.3.0"
-  spec.add_development_dependency "dotenv"
-  spec.add_development_dependency "byebug"
-  spec.add_development_dependency "faker", "~> 2.1.0"
 
-  spec.add_runtime_dependency "rest-client", "~> 2.0"
-  spec.add_runtime_dependency "oauth2", "~> 1.4.0"
   spec.add_runtime_dependency "activesupport"
-
+  spec.add_runtime_dependency "oauth2", "~> 1.4.0"
+  spec.add_runtime_dependency "rest-client", "~> 2.0"
 end

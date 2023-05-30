@@ -1,28 +1,30 @@
-require 'spec_helper'
+# frozen_string_literal: true
 
-RSpec.describe 'Portfolio Requests' do
+require "spec_helper"
+
+RSpec.describe "Portfolio Requests" do
   before(:all) do
-    blurb = Blurb.new()
+    blurb = Blurb.new
     @resource = blurb.active_profile.portfolios
-    @resource_name = 'portfolio'
+    @resource_name = "portfolio"
     @create_hash = {
       name: Faker::Lorem.word,
-      state: 'enabled',
+      state: "enabled",
       budget: {
         amount: rand(0..1000).to_f,
-        policy: 'dateRange',
-        startDate: '20191231',
-      },
+        policy: "dateRange",
+        startDate: "20191231"
+      }
     }
     @update_hash = {
       name: Faker::Lorem.word.concat(rand(1..100).to_i.to_s),
-      state: 'enabled',
+      state: "enabled",
       budget: {
-        amount: rand(0..1000).to_f,
-      },
+        amount: rand(0..1000).to_f
+      }
     }
     @ignored_examples = [:delete]
   end
 
-  include_examples 'request collection'
+  include_examples "request collection"
 end

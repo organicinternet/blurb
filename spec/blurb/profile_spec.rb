@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 RSpec.describe Blurb::Profile do
-  let(:profile) { Blurb.new().active_profile }
+  let(:profile) { Blurb.new.active_profile }
 
   describe "#initialize" do
     it "correctly initializes profile id" do
@@ -9,9 +11,9 @@ RSpec.describe Blurb::Profile do
     end
   end
 
-  describe '#profile_details' do
+  describe "#profile_details" do
     it "retrieves profile" do
-      expect(profile.profile_details()[:profile_id].to_i).to eql(profile.profile_id.to_i)
+      expect(profile.profile_details[:profile_id].to_i).to eql(profile.profile_id.to_i)
     end
   end
 end

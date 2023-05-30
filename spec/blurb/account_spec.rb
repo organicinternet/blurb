@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 RSpec.describe Blurb::Account do
-  let(:account) { Blurb.new().account }
+  let(:account) { Blurb.new.account }
 
   describe "#initialize" do
     it "correctly initializes refresh token" do
@@ -18,7 +20,7 @@ RSpec.describe Blurb::Account do
     end
   end
 
-  describe '#set_active_profile' do
+  describe "#set_active_profile" do
     it "correctly sets profile" do
       profile = account.profiles.sample
       account.set_active_profile(profile.profile_id)
@@ -26,7 +28,7 @@ RSpec.describe Blurb::Account do
     end
   end
 
-  describe '#get_profile' do
+  describe "#get_profile" do
     it "correctly sets profile" do
       profile = account.profiles.sample
       expect(account.get_profile(profile.profile_id)).to eql(profile)
@@ -35,16 +37,16 @@ RSpec.describe Blurb::Account do
 
   describe "#profile_list" do
     it "returns profiles" do
-      profiles = account.profile_list()
+      profiles = account.profile_list
       expect(profiles.length).to be > 0
     end
   end
 
-  describe '#retrieve_profile' do
+  describe "#retrieve_profile" do
     it "retrieves profile" do
-      profiles = account.profile_list()
+      profiles = account.profile_list
 
-      profiles.each do | p |
+      profiles.each do |p|
         expect(account.retrieve_profile(p["profileId"])).not_to be nil
       end
     end

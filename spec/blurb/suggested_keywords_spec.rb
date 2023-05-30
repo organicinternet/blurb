@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 RSpec.describe Blurb::SuggestedKeywordRequests do
   before(:all) do
-    @blurb = Blurb.new()
+    @blurb = Blurb.new
     @resource = @blurb.active_profile.suggested_keywords
     @ad_group_id = @blurb.active_profile.ad_groups.list.last[:ad_group_id]
     @asin = "B00KTNSRKI"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RequestCollectionExamples
   RSpec.shared_examples "request collection" do
     before(:all) do
@@ -6,32 +8,32 @@ module RequestCollectionExamples
       @new_resource_id = @response["#{@resource_name}_id".to_sym]
     end
 
-    describe '#create' do
+    describe "#create" do
       it "creates a resource" do
         skip if @ignored_examples.include? :create
         expect(@new_resource_id).to be_truthy
       end
     end
 
-    describe '#list' do
+    describe "#list" do
       it "gets a list of resources" do
         skip if @ignored_examples.include? :list
-        @response = @resource.list()
+        @response = @resource.list
         expect(@response.length).to be > 0
       end
       it "test url params"
     end
 
-    describe '#list_extended' do
+    describe "#list_extended" do
       it "gets a list of resources" do
         skip if @ignored_examples.include? :list_extended
-        @response = @resource.list_extended()
+        @response = @resource.list_extended
         expect(@response.length).to be > 0
       end
       it "test url params"
     end
 
-    describe '#retrieve' do
+    describe "#retrieve" do
       it "correctly retrieves a resource" do
         skip if @ignored_examples.include? :retrieve
         @response = @resource.retrieve(@new_resource_id)
@@ -39,7 +41,7 @@ module RequestCollectionExamples
       end
     end
 
-    describe '#retrieve_extended' do
+    describe "#retrieve_extended" do
       it "correctly retrieves extended resource" do
         skip if @ignored_examples.include? :retrieve_extended
         @response = @resource.retrieve_extended(@new_resource_id)
@@ -47,11 +49,11 @@ module RequestCollectionExamples
       end
     end
 
-    describe '#create_bulk' do
-      it 'succesfully creates over 100 resources'
+    describe "#create_bulk" do
+      it "succesfully creates over 100 resources"
     end
 
-    describe '#update' do
+    describe "#update" do
       it "updates a resource" do
         skip if @ignored_examples.include? :update
         @response = @resource.update(
@@ -62,10 +64,10 @@ module RequestCollectionExamples
       end
     end
 
-    describe '#update_bulk' do
-      it 'succesfully updates several resources' do
+    describe "#update_bulk" do
+      it "succesfully updates several resources" do
         skip if @ignored_examples.include? :update_bulk
-        resources = @resource.list()
+        resources = @resource.list
         payload = resources.map do |r|
           {
             "#{@resource_name}_id".to_sym => r["#{@resource_name}_id".to_sym],
@@ -77,7 +79,7 @@ module RequestCollectionExamples
       end
     end
 
-    describe '#delete' do
+    describe "#delete" do
       it "deletes a resource" do
         skip if @ignored_examples.include? :delete
         @response = @resource.delete(@new_resource_id)
