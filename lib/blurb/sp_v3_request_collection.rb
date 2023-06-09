@@ -3,6 +3,9 @@ require 'blurb/base_class'
 
 class Blurb
   class SpV3RequestCollection < BaseClass
+    attr_accessor :api_limit
+    attr_reader :base_url, :resource_type, :resource_key, :headers
+
     def initialize(headers:, resource_type:, base_url: nil, bulk_api_limit: 1000)
       @base_url = base_url
       @resource_type = resource_type.to_s
@@ -84,14 +87,15 @@ class Blurb
       )
     end
 
-    def delete(resource_id)
-      execute_request(
-        api_path: "/delete",
-        request_type: :post,
-        payload: {
-          "#{@resource_type}IdFilter" => { include: [resource_id] }
-        }
-      )
+    def delete(resource_ids)
+      results = []
+      payload_key = "#{@resource_type.sub(/product_ad/, 'ad').camelcase(:lower)}IdFilter"
+      execute_request_params = {api_path: "/delete", request_type: :post}
+      Array(resource_ids).each_slice(@api_limit) do |p|
+        execute_request_params[:payload] = { payload_key => { include: p } }
+        results << assemble_results(execute_request(**execute_request_params))
+      end
+      results.flatten
     end
 
     private
