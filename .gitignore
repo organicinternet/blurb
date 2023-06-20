@@ -12,3 +12,7 @@
 .rspec_status
 .env
 .byebug_history
+
+# Ignore Editor/IDE
+/.vscode
+/.idea

@@ -85,7 +85,7 @@ class Blurb
         when Hash
           Hash[value.map { |k, v| [camelcase_key(k), camelcase_keys(v)] }]
         else
-          value = value.strftime("%Y%m%d") if [Date, Time, ActiveSupport::TimeWithZone].include?(value.class)
+          value = value.strftime("%Y-%m-%d") if [Date, Time, ActiveSupport::TimeWithZone].include?(value.class)
           value
         end
       end

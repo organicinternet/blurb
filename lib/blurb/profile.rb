@@ -13,6 +13,7 @@ require 'blurb/product_request'
 require 'blurb/bid_recommendation_requests'
 require 'blurb/budget_recommendation_requests'
 require 'blurb/budget_rules_recommendation_requests'
+require 'blurb/sp_v3_request_collection'
 
 class Blurb
   class Profile < BaseClass
@@ -29,7 +30,16 @@ class Blurb
       :targets,
       :history,
       :products,
-      :sp_reports_3v
+      :sp_reports_3v,
+      # SP V3
+      :sp_campaigns_3v,
+      :sp_ad_groups_3v,
+      :sp_product_ads_3v,
+      :sp_keywords_3v,
+      :sp_targets_3v,
+      :sp_campaign_negative_keywords_3v,
+      :sp_negative_keywords_3v,
+      :sp_negative_targets_3v
     )
 
     def initialize(profile_id:, account:)
@@ -185,26 +195,67 @@ class Blurb
         base_url: account.api_url,
         campaign_type: CAMPAIGN_TYPE_CODES[:sp]
       )
+
+      @sp_campaigns_3v = SpV3RequestCollection.new(
+        headers: headers_hash,
+        resource_type: :campaign,
+        base_url: "#{account.api_url}/sp/campaigns"
+      )
+      @sp_ad_groups_3v = SpV3RequestCollection.new(
+        headers: headers_hash,
+        resource_type: :ad_group,
+        base_url: "#{account.api_url}/sp/adGroups"
+      )
+      @sp_product_ads_3v = SpV3RequestCollection.new(
+        headers: headers_hash,
+        resource_type: :product_ad,
+        base_url: "#{account.api_url}/sp/productAds"
+      )
+      @sp_keywords_3v = SpV3RequestCollection.new(
+        headers: headers_hash,
+        resource_type: :keyword,
+        base_url: "#{account.api_url}/sp/keywords"
+      )
+      @sp_targets_3v = SpV3RequestCollection.new(
+        headers: headers_hash,
+        resource_type: :target,
+        base_url: "#{account.api_url}/sp/targets"
+      )
+      @sp_campaign_negative_keywords_3v = SpV3RequestCollection.new(
+        headers: headers_hash,
+        resource_type: :campaign_negative_keyword,
+        base_url: "#{account.api_url}/sp/campaignNegativeKeywords"
+      )
+      @sp_negative_keywords_3v = SpV3RequestCollection.new(
+        headers: headers_hash,
+        resource_type: :negative_keyword,
+        base_url: "#{account.api_url}/sp/negativeKeywords"
+      )
+      @sp_negative_targets_3v = SpV3RequestCollection.new(
+        headers: headers_hash,
+        resource_type: :negative_target,
+        base_url: "#{account.api_url}/sp/negativeTargets"
+      )
     end
 
     def campaigns(campaign_type)
-      return @sp_campaigns if campaign_type == :sp
+      return @sp_campaigns_3v if campaign_type == :sp
       return @sb_campaigns if %i[sb hsa].include?(campaign_type)
       return @sd_campaigns if campaign_type == :sd
     end
 
     def keywords(campaign_type)
-      return @sp_keywords if campaign_type == :sp
+      return @sp_keywords_3v if campaign_type == :sp
       return @sb_keywords if %i[sb hsa].include?(campaign_type)
     end
 
     def negative_keywords(campaign_type)
-      return @sp_negative_keywords if campaign_type == :sp
+      return @sp_negative_keywords_3v if campaign_type == :sp
       return @sb_negative_keywords if %i[sb hsa].include?(campaign_type)
     end
 
     def negative_targets(campaign_type)
-      return @sp_negative_targets if campaign_type == :sp
+      return @sp_negative_targets_3v if campaign_type == :sp
       return @sb_negative_targets if %i[sb hsa].include?(campaign_type)
     end
 
