@@ -18,7 +18,8 @@ class Blurb
     def camel_resource_key(resource_type)
       {
         "target" => "targetingClause",
-        "negative_target" => "negativeTargetingClause"
+        "negative_target" => "negativeTargetingClause",
+        "campaign_negative_target" => "campaignNegativeTargetingClause"
       }.fetch(resource_type, resource_type).singularize.camelcase(:lower)
     end
 
