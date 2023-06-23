@@ -50,13 +50,17 @@ class Blurb
       _list_params_[:adIdFilter] = {include: Array(params[:ad_id_filter]).map(&:to_s)} if params[:ad_id_filter].present?
       _list_params_[:negativeKeywordIdFilter] = {include: Array(params[:ng_keyword_id_filter]).map(&:to_s)} if params[:ng_keyword_id_filter].present?
       _list_params_[:negativeTargetIdFilter] = {include: Array(params[:ng_target_id_filter]).map(&:to_s)} if params[:ng_target_id_filter].present?
+      _list_params_[:campaignNegativeKeywordIdFilter] = {include: Array(params[:campaign_ng_keyword_id_filter]).map(&:to_s)} if params[:campaign_ng_keyword_id_filter].present?
+      _list_params_[:campaignNegativeTargetIdFilter] = {include: Array(params[:campaign_ng_target_id_filter]).map(&:to_s)} if params[:campaign_ng_target_id_filter].present?
       _list_params_[:campaignTargetingTypeFilter] = params[:targeting_type_filter] if params[:targeting_type_filter].present?
 
       _list_params_[:locale] = params[:locale] if params[:locale].present?
       _list_params_[:matchTypeFilter] = Array(params[:match_type_filter]) if params[:match_type_filter].present?
       _list_params_[:expressionTypeFilter] = {include: Array(params[:exp_type_filter])} if params[:exp_type_filter].present?
       _list_params_[:nameFilter] = { queryTermMatchType: params[:term_type] || "BROAD_MATCH", include: Array(params[:name_filter]) } if params[:name_filter].present?
+      _list_params_[:keywordTextFilter] = { queryTermMatchType: params[:term_type] || "BROAD_MATCH", include: Array(params[:kw_filter]) } if params[:kw_filter].present?
       _list_params_[:negativeKeywordTextFilter] = { queryTermMatchType: params[:term_type] || "BROAD_MATCH", include: Array(params[:ng_kw_filter]) } if params[:ng_kw_filter].present?
+      _list_params_[:campaignNegativeKeywordTextFilter] = { queryTermMatchType: params[:term_type] || "BROAD_MATCH", include: Array(params[:campagin_ng_kw_filter]) } if params[:campagin_ng_kw_filter].present?
       _list_params_[:asinFilter] = { queryTermMatchType: params[:term_type] || "BROAD_MATCH", include: Array(params[:asin_filter]) } if params[:asin_filter].present?
 
       _list_params_
