@@ -38,6 +38,7 @@ class Blurb
       :sp_keywords_3v,
       :sp_targets_3v,
       :sp_campaign_negative_keywords_3v,
+      :sp_campaign_negative_targets_3v,
       :sp_negative_keywords_3v,
       :sp_negative_targets_3v
     )
@@ -225,6 +226,11 @@ class Blurb
         headers: headers_hash,
         resource_type: :campaign_negative_keyword,
         base_url: "#{account.api_url}/sp/campaignNegativeKeywords"
+      )
+      @sp_campaign_negative_targets_3v = SpV3RequestCollection.new(
+        headers: headers_hash,
+        resource_type: :campaign_negative_target,
+        base_url: "#{account.api_url}/sp/campaignNegativeTargets"
       )
       @sp_negative_keywords_3v = SpV3RequestCollection.new(
         headers: headers_hash,
