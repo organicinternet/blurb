@@ -14,6 +14,7 @@ require 'blurb/bid_recommendation_requests'
 require 'blurb/budget_recommendation_requests'
 require 'blurb/budget_rules_recommendation_requests'
 require 'blurb/sp_v3_request_collection'
+require 'blurb/amazon_marketing_stream'
 
 class Blurb
   class Profile < BaseClass
@@ -326,6 +327,13 @@ class Blurb
       headers_hash['Content-Encoding'] = 'gzip' if opts[:gzip]
 
       headers_hash
+    end
+
+    def stream_subscriptions
+      @_stream_subscriptions ||= AmazonMarketingStream.new(
+        headers: headers_hash,
+        base_url: account.api_url
+      )
     end
   end
 end
