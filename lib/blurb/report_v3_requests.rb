@@ -21,8 +21,8 @@ class Blurb
 
       payload = {
         name: "#{report_type_id}->#{group_by.join("&")} report: #{start_date} ~ #{end_date}",
-        start_date: start_date,
-        end_date: end_date,
+        startDate: start_date,
+        endDate: end_date,
         configuration: {
           filters: filters,
           time_unit: time_unit,
