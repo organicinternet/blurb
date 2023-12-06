@@ -12,7 +12,7 @@ class Blurb
       execute_request(
         api_path: "/#{record_type.to_s.camelize(:lower)}/snapshot",
         request_type: :post,
-        payload: { state_filter: }
+        payload: { state_filter: state_filter }
       )
     end
 

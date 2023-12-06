@@ -14,7 +14,7 @@ class Blurb
       execute_request(
         api_path: "/targets/bid/recommendations",
         request_type: :post,
-        payload:
+        payload: payload
       )
     end
   end

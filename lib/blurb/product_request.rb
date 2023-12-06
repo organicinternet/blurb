@@ -14,7 +14,7 @@ class Blurb
       execute_request(
         api_path: "/product/metadata",
         request_type: :post,
-        payload:
+        payload: payload
       )
     end
 
@@ -22,7 +22,7 @@ class Blurb
       execute_request(
         api_path: "/eligibility/product/list",
         request_type: :post,
-        payload:
+        payload: payload
       )
     end
 
@@ -30,7 +30,7 @@ class Blurb
       execute_request(
         api_path: "/eligibility/programs",
         request_type: :post,
-        payload:
+        payload: payload
       )
     end
   end

@@ -12,7 +12,7 @@ class Blurb
     def list(url_params = nil)
       execute_request(
         request_type: :get,
-        url_params:
+        url_params: url_params
       )
     end
 
@@ -20,7 +20,7 @@ class Blurb
       execute_request(
         api_path: '/extended',
         request_type: :get,
-        url_params:
+        url_params: url_params
       )
     end
 
@@ -73,10 +73,10 @@ class Blurb
         url.sub!('/sd/', '/') if request_type == :get && url.include?('sd/reports') && url_params.nil?
 
         request = Request.new(
-          url:,
-          url_params:,
-          request_type:,
-          payload:,
+          url: url,
+          url_params: url_params,
+          request_type: request_type,
+          payload: payload,
           headers: @headers
         )
 

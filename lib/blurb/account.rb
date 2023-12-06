@@ -28,7 +28,7 @@ class Blurb
       @profiles = []
       if profile_id
         @profiles << Profile.new(
-          profile_id:,
+          profile_id: profile_id,
           account: self
         )
       else

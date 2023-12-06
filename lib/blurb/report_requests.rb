@@ -23,7 +23,7 @@ class Blurb
       metrics = get_default_metrics(record_type.to_s.underscore.to_sym, segment) if metrics.nil?
       payload = {
         metrics: metrics.map { |m| m.to_s.camelize(:lower) }.join(','),
-        report_date:
+        report_date: report_date
       }
 
       payload[:segment]       = segment if segment
@@ -41,7 +41,7 @@ class Blurb
       execute_request(
         api_path: "/#{record_type.to_s.camelize(:lower)}/report",
         request_type: :post,
-        payload:
+        payload: payload
       )
     end
 

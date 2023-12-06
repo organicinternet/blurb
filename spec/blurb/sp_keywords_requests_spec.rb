@@ -15,8 +15,8 @@ RSpec.describe 'Sponsored Brand Keyword Requests' do
       keyword_text: Faker::Lorem.word,
       state: %w[enabled paused].sample,
       match_type: %w[exact phrase broad].sample,
-      campaign_id:,
-      ad_group_id:
+      campaign_id: campaign_id,
+      ad_group_id: ad_group_id,
     }
     @update_hash = {
       state: 'enabled'

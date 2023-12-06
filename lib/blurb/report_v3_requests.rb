@@ -21,13 +21,13 @@ class Blurb
 
       payload = {
         name: "#{report_type_id}->#{group_by.join("&")} report: #{start_date} ~ #{end_date}",
-        start_date:,
-        end_date:,
+        start_date: start_date,
+        end_date: end_date,
         configuration: {
-          filters:,
-          time_unit:,
-          report_type_id:,
-          group_by:,
+          filters: filters,
+          time_unit: time_unit,
+          report_type_id: report_type_id,
+          group_by: group_by,
           ad_product: ad_product_string,
           columns: metrics.map { |m| m.to_s.camelize(:lower) } + time_unit_columns,
           format: "GZIP_JSON",
@@ -37,7 +37,7 @@ class Blurb
       execute_request(
         api_path: "/reports",
         request_type: :post,
-        payload:
+        payload: payload
       )
     end
 

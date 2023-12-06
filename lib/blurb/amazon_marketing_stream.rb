@@ -53,10 +53,10 @@ class Blurb
       def execute_request(request_type:, api_path: '', payload: nil, url_params: nil)
         url = "#{@base_url}#{api_path}"
         request = Request.new(
-          url:,
-          url_params:,
-          request_type:,
-          payload: ,
+          url: url,
+          url_params: url_params,
+          request_type: request_type,
+          payload: payload,
           headers: @headers
         )
 
